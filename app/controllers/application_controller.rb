@@ -4,6 +4,12 @@ class ApplicationController < ActionController::API
   rescue_from JWT::VerificationError, with: :invalid_token
   rescue_from JWT::DecodeError, with: :decode_error
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+  def route_not_found
+    render json: { error: "Route not found" }, status: :not_found
+  end
+
   private
 
   def authenticate
@@ -20,5 +26,9 @@ class ApplicationController < ActionController::API
 
   def decode_error
     render json: { decode_error: "You must be logged in" }
+  end
+
+  def record_not_found
+    render json: { error: "ID not found" }, status: :not_found
   end
 end

@@ -2,14 +2,14 @@ class AuthenticationController < ApplicationController
   skip_before_action :authenticate
 
   def login
-    user = User.find_by(email: params[:user][:email])
-    authenticated_user = user&.authenticate(params[:user][:password])
+    @user = User.find_by(email: params[:user][:email])
+    authenticated_user = @user&.authenticate(params[:user][:password])
 
     if authenticated_user
-      token = JsonWebToken.encode(user_id: user.id)
+      token = JsonWebToken.encode(user_id: @user.id)
       expires_at = JsonWebToken.decode(token)[:exp]
 
-      render json: { user:, token:, expires_at: }, status: :ok
+      render json: { user: @user, token:, expires_at: }, status: :ok
     else
       render json: { error: "Invalid Username or Password!" }, status: :unauthorized
     end
