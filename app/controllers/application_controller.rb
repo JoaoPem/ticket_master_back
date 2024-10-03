@@ -19,6 +19,6 @@ class ApplicationController < ActionController::API
   end
 
   def decode_error
-    render json: { decode_error: "Decode error" }
+    render json: { decode_error: "You must be logged in" }
   end
 end
