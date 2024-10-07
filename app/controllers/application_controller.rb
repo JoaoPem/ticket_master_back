@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  before_action :ensure_json_request
   before_action :authenticate
 
   rescue_from JWT::VerificationError, with: :invalid_token
@@ -30,5 +31,12 @@ class ApplicationController < ActionController::API
 
   def record_not_found
     render json: { error: "ID not found" }, status: :not_found
+  end
+
+  def ensure_json_request
+    unless request.headers["Accept"].to_s.include?("application/vnd.api+json")
+      render json: { error: "Unsupported Media Type. Only application/vnd.api+json is allowed." }, status: :unsupported_media_type
+      nil
+    end
   end
 end
