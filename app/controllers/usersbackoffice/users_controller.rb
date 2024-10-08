@@ -1,5 +1,6 @@
 class Usersbackoffice::UsersController < ApplicationController
-  before_action :set_user, only: [ :show ]
+  load_and_authorize_resource
+  before_action :set_user, only: %i[ show update destroy ]
   def sign_up
     @user = User.new(user_params)
     if @user.save
@@ -18,10 +19,23 @@ class Usersbackoffice::UsersController < ApplicationController
     render json: @user
   end
 
+  def update
+    if @user.update(user_params)
+      render json: @user
+    else
+      render json: @user.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user.destroy
+    head :no_content
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :department)
   end
 
   def set_user

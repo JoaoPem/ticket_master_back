@@ -7,6 +7,10 @@ class ApplicationController < ActionController::API
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  rescue_from CanCan::AccessDenied, with: :access_denied
+
+  attr_reader :current_user
+
   def route_not_found
     render json: { error: "Route not found" }, status: :not_found
   end
@@ -18,7 +22,7 @@ class ApplicationController < ActionController::API
     token = authorization_header.split(" ").last if authorization_header
     decoded_token = JsonWebToken.decode(token)
 
-    User.find(decoded_token[:user_id])
+    @current_user = User.find(decoded_token[:user_id])
   end
 
   def invalid_token
@@ -38,5 +42,9 @@ class ApplicationController < ActionController::API
       render json: { error: "Unsupported Media Type. Only application/vnd.api+json is allowed." }, status: :unsupported_media_type
       nil
     end
+  end
+
+  def access_denied
+    render json: { error: "Access Denied: You do not have permission to perform this action." }, status: :forbidden
   end
 end

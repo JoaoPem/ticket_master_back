@@ -9,6 +9,9 @@
 #   end
 
 User.create!(
+  name: 'User Admin',
   email: 'admin@teste.com',
-  password: ENV['ADMIN_PASSWORD']
+  password: ENV['ADMIN_PASSWORD'],
+  role: 'admin',
+  department: 'Dev'
 )

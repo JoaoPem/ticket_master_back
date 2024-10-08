@@ -30,19 +30,19 @@ gem "bootsnap", require: false
 gem "rack-cors"
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
-gem 'jwt'
+gem "jwt"
 # ActiveModel::Serializer implementation and Rails hooks
-gem 'active_model_serializers', '~> 0.10.0'
+gem "active_model_serializers", "~> 0.10.0"
 # Provides independent spinner component
-gem 'tty-spinner'
+gem "tty-spinner"
 # Pretty print your Ruby objects with style
-gem 'awesome_print'
+gem "awesome_print"
 # Implement roles in the User model.
-#gem 'cancancan'
+gem "cancancan"
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps
-#gem 'kaminari'
+# gem 'kaminari'
 
-gem 'dotenv-rails'
+gem "dotenv-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -54,5 +54,3 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
-
-

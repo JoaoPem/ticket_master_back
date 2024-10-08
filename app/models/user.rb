@@ -6,6 +6,12 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX, message: "Invalid email format" }
 
+  enum role: [ :admin, :worker, :customer ]
+
+  validates :name, presence: true, length: { minimum: 8, maximum: 100 }
+  validates :role, presence: true
+  validates :department, presence: true
+
   def password_complexity
     return if password.blank?
 
