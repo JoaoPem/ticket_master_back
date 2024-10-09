@@ -8,10 +8,12 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+test_department = Department.create!(name: "test")
+
 User.create!(
   name: 'User Admin',
   email: 'admin@teste.com',
   password: ENV['ADMIN_PASSWORD'],
-  role: 'admin',
-  department: 'Dev'
+  role: 0,
+  department: test_department
 )
