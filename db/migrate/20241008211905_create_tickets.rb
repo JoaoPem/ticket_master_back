@@ -3,7 +3,7 @@ class CreateTickets < ActiveRecord::Migration[7.2]
     create_table :tickets do |t|
       t.string :title, null: false
       t.text :description, null: false
-      t.string :status, null: false, default: 'new'
+      t.string :status, null: false, default: 0
       t.references :creator, foreign_key: { to_table: :users }, null: false
       t.references :requester, foreign_key: { to_table: :users }, null: false
       t.references :assigned_user, foreign_key: { to_table: :users }, null: true

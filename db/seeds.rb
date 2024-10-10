@@ -12,7 +12,7 @@ test_department = Department.create!(name: "test")
 
 User.create!(
   name: 'User Admin',
-  email: 'admin@teste.com',
+  email: 'admin@test.com',
   password: ENV['ADMIN_PASSWORD'],
   role: 0,
   department: test_department

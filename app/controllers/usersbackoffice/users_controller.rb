@@ -35,7 +35,7 @@ class Usersbackoffice::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :department)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :department_id)
   end
 
   def set_user

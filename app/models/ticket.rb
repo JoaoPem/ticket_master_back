@@ -9,6 +9,10 @@ class Ticket < ApplicationRecord
   belongs_to :sector
   validates :sector, presence: true, unless: -> { assigned_user.present? }
 
+  enum status: { novo: 0, atribuido: 1, pendente: 2, encerrado: 3, concluido: 4 }
+
+  before_create :assign_sector_if_needed, :set_status
+
   private
 
   def assign_sector_if_needed
@@ -18,10 +22,6 @@ class Ticket < ApplicationRecord
   end
 
   def set_status
-    if assigned_user.present?
-      self.status = "atribuído"
-    else
-      self.status = "new"
-    end
+    self.status = assigned_user.present? ? :atribuido : :novo
   end
 end

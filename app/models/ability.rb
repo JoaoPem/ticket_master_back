@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -8,9 +6,11 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.worker?
-      can :manage, :User
+      can :manage, User
+      can :manage, Department
     elsif user.customer?
       cannot :access, User
+      cannot :access, Department
     end
   end
 end
