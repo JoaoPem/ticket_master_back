@@ -24,12 +24,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_211905) do
   create_table "tickets", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.string "status", default: "0", null: false
+    t.integer "status", null: false
     t.bigint "creator_id", null: false
     t.bigint "requester_id", null: false
     t.bigint "assigned_user_id"
     t.bigint "department_id", null: false
-    t.integer "priority", default: 0, null: false
+    t.integer "priority", null: false
+    t.date "deadline_date", null: false
+    t.time "deadline_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assigned_user_id"], name: "index_tickets_on_assigned_user_id"

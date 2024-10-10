@@ -9,6 +9,8 @@ class ApplicationController < ActionController::API
 
   rescue_from CanCan::AccessDenied, with: :access_denied
 
+  rescue_from ActionController::ParameterMissing, with: :parameter_missing
+
   attr_reader :current_user
 
   def route_not_found
@@ -46,5 +48,9 @@ class ApplicationController < ActionController::API
 
   def access_denied
     render json: { error: "Access Denied: You do not have permission to perform this action." }, status: :forbidden
+  end
+
+  def parameter_missing(exception)
+    render json: { error: exception.message }, status: :bad_request
   end
 end

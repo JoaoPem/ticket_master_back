@@ -8,9 +8,12 @@ class Ability
     elsif user.worker?
       can :manage, User
       can :manage, Department
+      can :manage, Ticket
     elsif user.customer?
       cannot :access, User
       cannot :access, Department
+      can :manage, Ticket, requester_id: user.id
+      can :manage, Ticket, creator_id: user.id
     end
   end
 end
